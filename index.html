@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #zeroSection {
+            position: absolute;
+            background-color: black;
+            height: 90%;
+            width: 90%;
+        }
+
+        .floatingZero {
+            color: chartreuse;
+            position: absolute;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="zeroSection">
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            generateZeros();            
+            generateZeros();
+            animateZeros();
+            
+        });
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+        var sectionWidth = $("#zeroSection").width();
+        var sectionHeight = $("#zeroSection").height();
+        var zeroHorizontalDistance = 15;
+
+        var zeroIterator = 0;
+
+        function generateZeros() {
+
+            for (var i = 0; i < sectionWidth; i += zeroHorizontalDistance) {
+                zeroIterator++;
+                var randTopPos = getRandomInt(sectionHeight);
+                $('#zeroSection').append('<div class="floatingZero" id="zero' + zeroIterator + '" style="left:' + i + 'px; bottom:' + randTopPos + 'px">0</div>');
+            }
+        }
+        var numZeros = $('.floatingZero').length;
+        var randomTime = 0;
+
+        function animateZeros() {
+            for (var i = 1; i <= zeroIterator; i++) {
+                randomTime = getRandomInt(5000);
+                $("#zero" + i).animate({
+                    bottom: "0"
+                }, randomTime);
+
+
+                $("#zero" + i).animate({
+                    bottom: sectionHeight - 10
+                }, randomTime);
+            }
+            animateZeros();
+
+        }
+
+    </script>
+</body>
+
+</html>
